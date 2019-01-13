@@ -1,0 +1,9 @@
+
+    1.过滤用户输入参数中的特殊字符,降低sql注入的风险;
+	2.禁止通过字符串拼接的sql语句,严格使用参数绑定传入的sql参数;
+	3.合理使用数据库访问框架提供的防注入机制;(Mybatis 提供的#{}绑定参数,从而防止SQL注入);
+	
+	错误案例:
+	    String test;
+		test = Request.from("test");
+		String sql = "select * from table where id = '"+test+"' ";(字符串拼接的形式)
