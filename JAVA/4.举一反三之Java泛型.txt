@@ -1,0 +1,85 @@
+
+
+
+
+     1.泛型类
+	   泛型类的类型参数声明部分也包含一个或多个类型参数，参数间用逗号隔开。
+	   一个泛型参数，也被称为一个类型变量，是用于指定一个泛型类型名称的标识符。
+	   因为他们接受一个或多个参数，这些类被称为参数化的类或参数化的类型。
+	举例:
+	    public class B<T>{
+		      private T t;
+			   public void add(T t) {
+					this.t = t;
+				}
+
+			  public T get() {
+					return t;
+				}
+
+			  public static void main(String[] args) {
+				Box<Integer> integerBox = new Box<Integer>();  //integer类型
+				Box<String> stringBox = new Box<String>();     //String类型
+
+				integerBox.add(new Integer(10));
+				stringBox.add(new String("菜鸟教程"));
+
+				System.out.printf("整型值为 :%d\n\n", integerBox.get());
+				System.out.printf("字符串为 :%s\n", stringBox.get());
+				}
+		}
+	
+	2.泛型方法
+	   　你可以写一个泛型方法，该方法在调用时可以接收不同类型的参数。
+	   根据传递给泛型方法的参数类型，编译器适当地处理每一个方法调用。
+	   public class Demo<T> {
+	     static <String,T,Alibaba> String get(String string, Alibaba alibaba){     //String仅仅是一个代号
+		    return string;
+		}
+		
+		public static void main(String[] args) {
+		    Integer first = 222;
+			Long second = 333L;
+			Integer result = get(first,second);  //编译且运行正常
+		}
+		
+	  }
+	  (1)尖括号里的每个元素都指代一种未知类型;
+	  (2)尖括号的位置必须在类名之后或方法返回值之前;
+	  (3)泛型在定义处只具备执行Object方法的能力;
+	  (4)泛型只是一种编写代码的语法检查;
+	  
+	  
+	 3.	K,V类型,键值对类似于Map
+	    public class ResultMap<K,V> {
+
+			private K key;
+			private V value;
+    
+		//省略 set ,get  方法
+
+
+			public void put(K key,V value){
+				this.key=key;
+				this.value=value;
+			}
+		}
+		使用:
+		 ResultMap<String,User> resultMap=new ResultMap<>();
+         resultMap.put("currentUserKey", new User());
+	 
+	 4.？extends 类型
+        <? extends T> 表示类型的上界，表示参数化类型的可能是T 或是 T的子类;
+     5.？supper 类型
+
+       <? super T> 表示类型下界（Java Core中叫超类型限定），表示参数化类型是此类型的超类型（父类型），直至Object;
+    
+
+    6.类型擦除
+      写代码的时候，泛型会做校验，类型不对应的，无法add,但是编译之后边去掉了泛型类型。	
+	
+	
+	7.为什么要用
+	  1)类型安全;
+	  2)消除强制类型转换;
+	
