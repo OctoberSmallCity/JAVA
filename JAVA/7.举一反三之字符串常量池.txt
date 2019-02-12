@@ -1,0 +1,41 @@
+
+
+
+
+    Java中字符串创建的形式:
+	     1.字面量形式
+		    String s = "abc";
+		 2.使用new构造对象的形式
+		   String s = new String("abc");
+		   
+		   
+    JVM 为了减少字符串对象的重复创建，其维护了一个特殊的内存，这段内存被成为字符串常量池或者字符串字面量池;
+	
+	原理举例:
+	     public class Test {
+			public static void main(String[] args) {
+
+				String s1 = "abc";
+				String s2 = "abc";
+
+				// 即执行完第一行代码后，常量池中已存在 “abc”，那么 s2不会在常量池中申请新的空间，而是直接把已存在的字符串内存地址返回给s2。
+				System.out.println(s1 == s2); // true
+
+
+				// new出来的对象不会放到常量池中,内存地址是不同的
+				String s3 = new String();
+				String s4 = new String();
+
+				/**
+				 * 字符串的比较不可以使用双等号,这样会比较内存地址;
+				 * 字符串比较应当用equals,可见String重写了equals()方法,比较值是否相等;
+				 */
+				System.out.println(s3 == s4); // false
+				System.out.println(s3.equals(s4)); // true
+			}
+         }
+		 
+		 当代码中出现字面量形式创建字符串对象时，
+		 1)JVM首先会对这个字面量进行检查，
+		 2)如果字符串常量池中存在相同内容的字符串对象的引用，则将这个引用返回，
+		 3)否则新的字符串对象被创建，然后将这个引用放入字符串常量池，并返回该引用;
