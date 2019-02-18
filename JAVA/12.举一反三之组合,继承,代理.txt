@@ -1,0 +1,63 @@
+
+
+
+
+     组合
+	     (1)在新类中 new 另外一个类的对象，以添加该对象的特性。
+		 
+		 (2)各部件之间没有什么特别的关系,只需要组合起来.可以调用新对象的方法;
+		 
+		 (3)代码举例:
+		     电脑由CPU,RAM等组成;
+		     public class Computer{
+			     
+				 public Computer(){
+				 Cpu cpu = new Cpu();
+				 RAM ram = new RAM();
+				 Disk disk = new Disk();
+				 }
+			 }
+			class CPU{    }
+			class RAM{    }
+			class Disk{    }
+		 
+		 
+		 
+	 继承
+	     
+		 子类继承父类的功能,各子类之间有差异;
+		 
+		 
+	 代理
+	     (1)在代理类中创建某功能的类，调用类的一些方法以获得该类的部分特性。
+		 
+		 (2)代码举例:
+		   // 飞行员权限代理类，普通飞行员不可以开火
+			public class PlaneDelegation{    
+				private PlaneControl planeControl;    //private外部不可访问
+
+				
+				PlaneDelegation(){
+					planeControl = new PlaneControl();
+				}
+				public void speed(){
+					planeControl.speed();
+				}
+				public void left(){
+					planeControl.left();
+				}
+				public void right(){
+					planeControl.right();
+				}
+			}
+
+			final class PlaneControl {// final表示不可继承，控制器都能继承那还得了
+				protected void speed() {}
+				protected void fire() {}
+				protected void left() {}
+				protected void right() {}
+			}
+			
+			
+			
+    推荐组合+接口使用，看 IO 中包装流 FilterInputStream 中的策略模式
