@@ -1,0 +1,160 @@
+
+
+
+
+     四种内部类定义的方法:
+	     public class OuterClass{
+		 
+		    
+			//成员内部类
+		  
+		     private class InstanceInnerClass{}
+			 
+			 
+			 //静态内部类
+			 
+			 static class StaticInnerClass{}
+			 
+			 public static void main(String[] args){
+			 
+			 //两个匿名内部类,对应OuterClass$1.class,OuterClass$2.class;
+			 
+			 (new Thread() {}).start());
+			 (new Thread() {}).start());
+			 
+			 //两个方法内部类(局部内部类),对应OuterClass$1MethodClass1.class,OuterClass$1MethodClass2.class
+			 class MethodClass1{};
+			 class 	MethodClass2{};
+			 } 
+		 }
+		 
+		 
+	编译形成的.class文件:
+	    OuterClass.class
+		OuterClass$1.class
+		OuterClass$1MethodClass1.class
+		OuterClass$1MethodClass2.class
+		OuterClass$2.class
+		OuterClass$InstanceInnerClass.class
+		OuterClass$StaticInner.class
+		
+	外部类与内部类之间使用符号$分隔,匿名内部类使用数字进行编号;
+	
+	
+	1.成员内部类
+	   
+	   (1)无限制访问外部类的所有成员方法以及属性;
+	   (2)但是外围类要访问内部类的成员属性和方法则需要通过内部类实例来访问;
+	   (3)注意:
+	        1)成员内部类中不能存在任何 static 的变量和方法；
+			2)只有创建了外部类才能创建成员内部类;
+			
+			
+			
+	
+	2.静态内部类
+	     
+		(1)它的创建是不需要依赖于外部类的。
+		(2)不能使用任何外部类的非static成员变量以及方法;
+	    (3)在JDK源码中,定义包内可见静态内部类的方式很常见,这样做的好处:
+		     1)作用域不会扩散到包外;
+			 2)可以通过"外部类.内部类" 的方式直接访问;
+			 3)内部类可以访问外部类的所有静态属性和方法;
+			 
+	
+	3.匿名内部类
+	    
+		
+		(1)只能使用一次;
+		(2)必须继承一个父类或实现一个接口;
+		
+	    (3)实例:
+		     1)不使用匿名内部类来实现抽象方法:
+			    abstract class Person {
+					public abstract void eat();
+				}
+
+				class Child extends Person {
+					public void eat() {
+						System.out.println("eat something");
+					}
+				}
+
+				public class Demo {
+					public static void main(String[] args) {
+						Person p = new Child();
+						p.eat();
+					}
+				}
+            定义Child类实现抽象类Person;
+			
+			2)匿名内部类的基本实现
+				abstract class Person {
+					public abstract void eat();
+				}
+
+				public class Demo {
+					public static void main(String[] args) {
+						Person p = new Person() {
+							public void eat() {
+								System.out.println("eat something");
+							}
+						};
+						p.eat();
+					}
+	            }
+				
+				
+			3)在接口上使用匿名内部类
+				interface Person {
+					public void eat();
+				}
+
+				public class Demo {
+					public static void main(String[] args) {
+						Person p = new Person() {
+							public void eat() {
+								System.out.println("eat something");
+							}
+						};
+						p.eat();
+					}
+				}
+				
+			最常用的情况就是在多线程的实现上，因为要实现多线程必须继承 Thread 类或是继承 Runnable 接口;	
+	        4)Thread类的匿名内部类实现:
+			
+				public class Demo {
+					public static void main(String[] args) {
+						Thread t = new Thread() {
+							public void run() {
+								for (int i = 1; i <= 5; i++) {
+									System.out.print(i + " ");
+								}
+							}
+						};
+						t.start();
+					}
+				}
+
+            5)Runnable接口的匿名内部类实现
+				public class Demo {
+					public static void main(String[] args) {
+					Runnable r = new Runnable() {
+						public void run() {
+							for (int i = 1; i <= 5; i++) {
+								System.out.print(i + " ");
+							}
+						}
+					};
+					Thread t = new Thread(r);
+					t.start();
+				    }
+			    }
+
+        4.局部内部类
+		   (1)它的作用域发生了改变，它只能在该方法和属性中被使用，出了该方法和属性就会失效。
+		
+		
+		
+	
