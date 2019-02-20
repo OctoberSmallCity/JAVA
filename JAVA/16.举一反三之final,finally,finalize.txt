@@ -1,0 +1,69 @@
+
+
+
+
+     1.final
+	     (1)修饰类是不可被继承;
+		 (2)修饰方法不可以被重写;
+		 (3)修饰属性不可以变化;
+		 
+		 
+	 2.finally
+	    
+		 (1)在Java语言的异常处理中,无论遇到什么情况,finally块都会被执行;
+		     有return语句时,说明finally块的代码在return语句之前执行;
+			 try,catch,finally含有return时,返回finally的return值(上面有一定的解释);
+			 
+			 注意:
+				public class FinallyTest {
+					
+					public static int test() {
+						int ret = 0;
+						try {
+							ret = 1;
+							return ret;   //执行到return语句,先把ret=1的值存入到某个位置,去执行finally里面的方法
+						}catch(Exception e) {
+							
+							return 0;
+						}finally {
+							ret = 2;     
+							System.out.println("finally");  //执行finally方法,修改ret的值并不会影响返回结果;
+						}
+						
+					}
+					
+					public static void main(String[] args) {
+						int result = test();
+						System.out.println(result);
+						
+					}
+
+				}
+		     输出结果是finally
+			            1
+						
+						
+		 (2)不会执行finally块的场景
+		         1)try之前代码出现异常,直接抛出异常;
+				 
+				 2)在try块中强制退出(包含System.exit());
+				 
+				 
+				 
+	 3.finalize-我到哪里去 (JDK9之后被标记为过时方法)
+	 
+	 
+	 
+	     (1)object的方法,
+		 垃圾回收器回收对象所在内存前被调用,即被宣布死亡后对象会先调用它的finalize()方法,处理它生前需要处理的事情,还可以自我就赎;
+		 
+		 (2)判断死亡
+		     JVM采用可达性算法判断,从GCRoot出发是否可达;
+			 
+		 (3)最后的救赎
+		     条件:(1)对象覆写了finalize()方法(临死前可以调用);
+			      (2)在 finalize() 方法中重新引用到 “GC Roots” 链上;
+			不稳定,不一定成功;
+		 (4)作用:
+		     资源回收,但是鉴于它的不确定性,不太好用;JDK9已经认为是过时方法;
+	     
