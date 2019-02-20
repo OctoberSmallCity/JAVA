@@ -1,0 +1,34 @@
+
+
+
+
+
+     1.break
+	    跳出当前循环;
+		
+		举例:
+		     for(int i = 0;i < 5;i++){
+			  
+				 if(i == 3)
+				 break;
+			    System.out.println(i);
+			 }
+		输出0,1,2;3之后的都不会输出;
+		
+		
+	 2.continue
+	     终止当前循环,但不会跳出循环;
+		 
+		 举例:
+		     for(int i = 0;i < 6;i++){
+			     if(i == 3)
+				 continue;
+				 System.out.println(i);
+			 }
+		输出0,1,2,4,5;3不会输出;
+		
+	 3.return
+	     从当前方法退出,返回到函数调用处;
+		 
+	注意:当返回值为void方法,从某个判断处跳出,必须得用return;
+	
