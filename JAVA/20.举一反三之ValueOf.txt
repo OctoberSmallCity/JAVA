@@ -1,0 +1,20 @@
+
+
+
+
+     1.代码举例:
+			Integer x = new Integer(123);
+			Integer y = new Integer(123);
+			System.out.println(x == y);    // false
+			Integer z = Integer.valueOf(123);
+			Integer k = Integer.valueOf(123); //取得同一对象的引用
+			System.out.println(z == k);   // true
+         
+		 new Integer会创建新的对象,valueOf()会引用缓冲池的对象;
+		 
+		 Integer m = 123;
+         Integer n = 123;
+         System.out.println(m == n); // true
+		 
+		 编译器在自动装箱时会调用用valueOf()方法,多个Integer实例创建并且值相同会引用相同的对象;
+		 
