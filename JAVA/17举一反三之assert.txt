@@ -14,5 +14,25 @@
 			 3)检查函数结果是否有效;
 			 4)检查程序不变;
 		 
+		 (3)编写
+				public class AssertTest {
+
+					public static void main(String[] args) {
+						// TODO Auto-generated method stub
+						
+						 System.out.println("123");
+
+							int a = 1;
+							int b = 0;
+							assert  a == b; //eclipse需显示开启，默认为不开启状态;a == b 为ture程序往下执行,false抛出异常
+							assert a == b : "执行失败！"; //添加"执行失败"的显示信息
+
+							System.out.println("1234");
+							
+
+					}
+
+				}
+
 		 
 
