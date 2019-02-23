@@ -1,0 +1,69 @@
+
+
+     http://www.cnblogs.com/dolphin0520/p/3778589.html
+ 
+     1.从String类开始
+	 
+	     (1)String类用final修饰;
+		 
+		 (2)通过char数组来保存字符串;
+		 
+		 (3)无论是sub,concat,replace操作都不是在原有字符串上进行的,而是生成了一个新的对象;
+		    
+			 String的不变性;
+			 
+			 “对String对象的任何改变都不影响到原对象，相关的任何change操作都会生成新的对象”。
+			 
+	
+	
+	 2.String StringBuilder StringBuffer
+	     
+		 (1)String的关键点
+	     
+					public class Main {
+							 
+						public static void main(String[] args) {
+							String str1 = "hello world";
+							String str2 = new String("hello world");
+							String str3 = "hello world";
+							String str4 = new String("hello world");
+							 
+							System.out.println(str1==str2); //false
+							System.out.println(str1==str3); //true
+							System.out.println(str2==str4); //false
+						}
+					}
+					
+		事关JVM的两个常量池
+		
+		         class文件常量池:String str1 = "hello world"和String str3 = "hello world"在编译的时候都生成了字面常量以及符号引用;
+				 
+				 运行时常量池(方法区):运行时字面常量"hello world"存在常量池中(一份),JVM会首先在此常量池中查找是否存在相同的字面常量;
+				                      存在的话,直接引用;否则,开辟新的空间存储;
+		new对象
+          
+                 是在堆区内进行的,JVM不会检查对象是否存在,直接创建;
+
+         
+		 (2)三者的区别
+		 
+		         为什么要有StringBuilder
+				     
+                     怪String的不变性,对String对象进行修改操作的时候要耗费大量的资源;
+
+                     而StringBuilder是在原对象上进行操作的;
+
+                 又为什么要有StringBuffer
+
+                     线程安全,多了一个synchronized;				 
+					   
+			     效率比拼
+
+
+                     String < StringBuffer < StringBuilder(相对情况下)	
+
+
+                     当字符串相加操作或者改动较少的情况下，建议使用 String str="hello"这种形式；					 
+         				 
+					
+		 
