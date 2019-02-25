@@ -1,0 +1,27 @@
+
+
+
+
+    1.异常是什么
+	
+	     Throwable类
+		     
+			 Error(错误)
+			     无法处理的异常,直接停止.
+				 
+			 Exception(异常)
+			    
+				 unchecked Exception(运行时异常,RuntimeException)
+				     不要求必要的异常捕获
+					 NullPointerException、IndexOutOfBoundsException、IllegalArgumentException
+					 
+				 checked Exception(非运行时异常)
+				     必须进行捕获处理.否则编译不通过.
+					 IOException、SQLException
+					 
+	
+	
+	 
+	 
+					 
+					 
