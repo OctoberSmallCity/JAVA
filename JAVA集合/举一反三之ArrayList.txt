@@ -1,0 +1,67 @@
+
+
+
+
+    1.ArrayList的实现
+	  
+	     public class ArrayList<E> extends AbstractList<E>
+        implements List<E>, RandomAccess, Cloneable, java.io.Serializable
+		
+		(1)继承了AbstractList类,实现了List接口,底层实现是数组,具有增删改查等操作;
+        
+		(2)实现了RandomAccess接口,可以随机访问;
+		   RandmoAccess是java中用来被List实现，为List提供快速访问功能的。ArrayList可以通过元素序号进行快速访问.
+		
+		(3)实现了Clonable接口,覆盖了函数clone(),能被克隆;
+		
+		(4)实现了java.io.Serializable接口,支持序列化;
+		     transient Object[] elementData; // non-private to simplify nested class access
+			 
+			 elementData 动态数组,初始容量为10,默认不会被序列化;
+			 
+			 ArrayList 重写了 writeObject() 和 readObject() 来控制只序列化数组中有元素填充那部分内容。
+			 
+		 (5)线程不安全,vector和copywriteArrayList线程安全;
+		 
+	2.ArrayList的扩容(源码为JDK11)
+	     
+         //第一次add的时,分配为10的容量(无参构造)		 
+		 private static final int DEFAULT_CAPACITY = 10;
+		 //空表的表示方法
+		 private static final Object[] EMPTY_ELEMENTDATA = {};
+		 
+		 transient Object[] elementData;
+		 private int size;
+		 
+		 public ArrayList(int initialCapacity) {
+		    
+			if(initialCapacity > 0){
+			    //值大于0时,根据构造方法的参数值,忠实的创建一个多大的数组;
+			     this.elementData = new Object{initialCapacity};		 
+			}else if(initialCapacity == 0){
+			     this.elementData = EMPTY_ELEMENTDATA;
+		 }
+		 
+		 public void add(E e,Object[] elementData,int s){
+		    //判断当前数组的大小是否能容纳size+1的元素,否则,则用grow来扩容;
+		     if(s == elementData.length)
+			     elementData = grow();
+			 elementData[s] = e;
+             size = s + 1;			 
+		 }
+		 
+		 private Object[] grow(){
+		 
+		     return grow(size + 1);
+		 }
+		 
+		 
+	
+	         
+			  
+			 
+
+		
+	
+
+
