@@ -54,10 +54,78 @@
 		 
 		     return grow(size + 1);
 		 }
-
-
+         //扩容的最小要求,必须容纳刚才的元素+1,注意,newCapacity()方法才是扩容的重点
+         private Object[] grow(int minCapacity){
+		     
+			 return elementData = Arrays.coprOf(elementData,newCapacity(minCapacity));
+			 
+		 }
+		 
+		 private int newCapacity(int  minCapacity){
+		    //防止扩容1.5倍后,超过int的表示范围;
+			 int oldCapacity = elementData.length;
+			 //JDK6之前扩容50%或50%-1,但是取ceil,而之后的版本取floor
+			 int newCapacity = oldCapacity + (oldCapacity >> 1); 
+			 if(newCapacity - minCapacity <= 0) {
+			     if(elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA)
+				     //无参构造方法,会在此时分配默认为10的容量;
+					 return Math.max(DEFAULT_CAPACITY,minCapacity);					 
+			 if(minCapacity < 0)
+			     throw new OutofMemoryError();			 
+			 return minCapacity;
+			 }
+			 return (newCapacity - MAX_ARRAY_SIZE <= 0)
+			     ?newCapacity
+				 :hugeCapacity(minCapacity);
+		 }
 		 
 		 
+	 3.fail-fast机制(快速失败机制)
+	   
+	     (1)什么是?
+		   
+		     在遍历一个集合时,当集合的结构被改变,会抛出Concurrent Modification Exception;
+			 
+			 
+		 (2)什么情况下发生?
+		 
+		     1)单线程环境
+			   
+			     集合被创建后,遍历时修改了它的结构;
+				 remove()不会抛出该异常;
+			 2)多线程环境
+			 
+			     一个线程遍历该集合时,另一个线程修改了它的结构;
+				 经常出现;
+				 
+			     当前线程会维护expectedModCount,记录已经修改的次数;
+				 遍历时,会把实时修改的modCount赋值给exceptedModCount,如果两个数据不相等,则抛出异常;
+			 
+			     ArrayList会发生;
+				 可使用CopyOnWriteArrayList;
+			 
+		 (3)哪些有
+		      
+			 java.util类下的所有集合类;
+			 
+		 (4) fail-safe机制
+		    
+			 concurrent包下的集合类都是;
+             COW家族;
+		 
+	 4.CopyOnWriteArrayList - COW(奶牛)家族
+
+         实行读写分离;
+         
+        (1)写操作
+             
+             复制一个新集合,对新集合进行添加或删除元素,修改完后再将原集合的引用指向新集合;
+
+        (2)读操作
+
+             直接读;
+         不需要加锁;
+         资源消耗大;		 
 	
 	         
 			  
