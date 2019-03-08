@@ -1,0 +1,20 @@
+
+
+
+
+     1.linkedList的实现
+	 
+	     public class LinkedList<E>
+           extends AbstractSequentialList<E>
+         implements List<E>, Deque<E>, Cloneable, java.io.Serializable {}
+	 
+	    (1)继承于AbstractSequentialList的双向链表,底层实现是一个双向链表;
+		     它包含一个非常重要的内部类：Entry。Entry是双向链表节点所对应的数据结构，
+			 它包括的属性有：当前节点所包含的值，上一个节点，下一个节点。
+		(2)实现了List接口和queue接口,可用于顺序容器,队列,栈,操作;
+		(3)实现了cloneable接口,可以克隆;
+		(4)实现了java.io.Serializable接口,可以序列化;
+		(5)需要使用队列或栈时,可以使用LinkedList;官方文档已经不推荐使用Stack;
+		   ArrayQueue性能更好,为首选;
+		   
+		   
