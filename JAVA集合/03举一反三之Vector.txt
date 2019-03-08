@@ -5,7 +5,7 @@
      1.Vector的实现
 	    
 		  
-		(1)实现与ArrayList相似,但是是线程安全的,用synchornized进行了同步;
+		(1)实现与ArrayList相似(不支持序列号),但是是线程安全的,用synchornized进行了同步;
 		 
 		(2)比ArrayList访问速度慢,消耗资源大;
 		
@@ -13,3 +13,7 @@
 		   
 		     List<String> list = new ArrayList<>();
              List<String> synList = Collections.synchronizedList(list);
+     
+	 
+	 
+	 
