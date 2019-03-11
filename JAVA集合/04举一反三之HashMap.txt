@@ -1,0 +1,78 @@
+
+
+
+
+     1.HashMap的存储 
+	   
+	    是一个散列表,以Key-Value的形式(键值对)存储;
+		
+		1)JDK1.7之前采用数组+链表的形式实现(链地址法);
+		    
+			 不同的Key经过hash计算可能会得到相同的地址;
+			 采用链表的形式存储相同地址的key-value键值对;
+			 
+			 
+		2)JDK1.8后采用数组+链表+红黑树的形式实现;
+		  
+		     由于当链表过长时,查找确定的key时可能会达到O(n);
+			 
+			 当链表长度=8时,自动转换为红黑树存储;
+			 红黑树对于数据的查询是O(logn);
+			 
+	    3)底层存储(JDK1.8)
+		    
+			 (1)哈希桶数组(Node[] table)
+			    
+					static class Node<K,V> implements Map.Entry<K,V> {
+						final int hash;    //用来定位数组索引位置
+						final K key;
+						V value;
+						Node<K,V> next;   //链表的下一个node
+
+						Node(int hash, K key, V value, Node<K,V> next) { ... }
+						public final K getKey(){ ... }
+						public final V getValue() { ... }
+						public final String toString() { ... }
+						public final int hashCode() { ... }
+						public final V setValue(V newValue) { ... }
+						public final boolean equals(Object o) { ... }
+					}
+                 实现了Map.Entry接口,就是一个映射(键值对);
+				 
+			 (2)解决哈希冲突
+			    
+				 采用哈希表实现的;
+				 链地址法解决冲突;
+				 
+				 时间上:Hash 算法计算结果越分散均匀，Hash 碰撞的概率就越小，map 的存取效率就会越高。
+				 空间上:哈希桶数组越大,较差的Hash算法也会比较分散;
+				 
+			 (3)如何取舍
+			    
+				 好的Hash算法+扩容机制
+				 
+					int threshold;             // 所能容纳的key-value对极限 
+					final float loadFactor;    // 负载因子
+					int modCount;  
+					int size; 
+					
+				 loadFactor 负载因子 默认初始值为0.75;
+				 Node[] table的初始length为16;
+				 threshold = length*0.75,为HashMap所能容纳的最多的键值对个数;
+				 size HashMap实际存储的键值对的个数;
+				 modCount记录fast-fail;
+				 
+				 扩容后的HashMap是之前容量的两倍;
+				 
+			 (4) length大小必须是2^n;
+                 
+                     便于取模和扩容时做优化,桶尽量为素数;
+	
+	 
+	 2.功能的实现
+       
+         	   
+				 
+				 
+				 
+				 
